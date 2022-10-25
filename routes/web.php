@@ -18,7 +18,7 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('home');
 });
 
@@ -37,6 +37,7 @@ Route::get('/contact', function () {
 // Route::get('/admin', function () {
 //     return view('admin.app');
 // });
+
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.auth')->middleware('guest');
