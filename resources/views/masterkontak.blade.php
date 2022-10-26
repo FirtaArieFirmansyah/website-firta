@@ -59,21 +59,29 @@
                    <th class="text-nowrap" width="15%">Aksi</th>
                   </tr>
                   <tbody>
-                  @foreach($siswas as $i => $siswa)
-                      <tr>
-                         <td>{{$siswa->nisn}}</td>
-                         <td>{{$siswa->nama}}</td>
-                         <td class="text-nowrap">
-                         <a onclick="show({{ $siswa->id}})" class="btn btn-info btn-sm">
-                         {{-- <i class="far fa-folder-open"></i> --}}
-                         <i class="fas fa-id-card-alt"></i>
-                         </a>
-                         <a href="{{ route('masterkontak.create') }}?siswa={{ $siswa->id}}" class="btn btn-success btn-sm">
-                         <i class="fas fa-plus"></i>
-                         </a>
-                         </td>
-                      </tr>
-                  @endforeach
+                    @if($siswas->count() > 0)
+                        @foreach($siswas as $i => $siswa)
+                            <tr>
+                                <td>{{$siswa->nisn}}</td>
+                                <td>{{$siswa->nama}}</td>
+                                <td class="text-nowrap">
+                                <a onclick="show({{ $siswa->id}})" class="btn btn-info btn-sm">
+                                {{-- <i class="far fa-folder-open"></i> --}}
+                                <i class="fas fa-id-card-alt"></i>
+                                </a>
+                                <a href="{{ route('masterkontak.create') }}?siswa={{ $siswa->id}}" class="btn btn-success btn-sm">
+                                <i class="fas fa-plus"></i>
+                                </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        @else 
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                Data Siswa Kosong.
+                            </td>
+                        </tr>
+                    @endif
                   </tbody>
                   </thead>
                 </table>  

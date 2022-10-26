@@ -36,7 +36,7 @@
                     @endforeach
                     @else 
                         <tr>
-                            <td colspan="7" class="text-center">
+                            <td colspan="3" class="text-center">
                                 Data Siswa Kosong.
                             </td>
                         </tr>
