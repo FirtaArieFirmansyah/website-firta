@@ -38,33 +38,41 @@
                         </tr>
                     </tbody>
                     {{-- @php $no=0; @endphp --}}
-                    @foreach ($siswas as $siswa)
-                    {{-- @php $no++; @endphp --}}
-                    <tr class="text-center text-nowrap">
-                        {{-- <th>{{$no}}</th> --}}
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$siswa->nisn}}</td>
-                        <td>{{$siswa->nama}}</td>
-                        <td>{{$siswa->jk}}</td>
-                        <td>{{$siswa->email}}</td>
-                        <td>{{$siswa->alamat}}</td>
-                        {{-- <td> 
-                            <img src="{{asset('storage/'. $siswa->foto)}}" alt="" style="display: block;
-                            max-height: 50px;
-                            width: auto;
-                            overflow: hidden;">
-                        </td> --}}
-                        <td>
-                            <a href="{{route('mastersiswa.show', $siswa['id'])}}" class="btn btn-success"><i class="fas fa-address-book"></i>&nbspLihat</a>
-                            <a href="{{route('mastersiswa.edit', $siswa['id'])}}" class="btn btn-primary"><i class="fas fa-edit"></i>&nbspEdit</a>
-                            <form action="{{ route('mastersiswa.destroy', $siswa->id) }}" onsubmit="return confirm('Apakah anda yakin menghapusnya??')" method="POST" class="d-inline">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash mr-1"></i>Hapus</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                    @if($siswas->count() > 0)
+                        @foreach ($siswas as $siswa)
+                        {{-- @php $no++; @endphp --}}
+                        <tr class="text-center text-nowrap">
+                            {{-- <th>{{$no}}</th> --}}
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$siswa->nisn}}</td>
+                            <td>{{$siswa->nama}}</td>
+                            <td>{{$siswa->jk}}</td>
+                            <td>{{$siswa->email}}</td>
+                            <td>{{$siswa->alamat}}</td>
+                            {{-- <td> 
+                                <img src="{{asset('storage/'. $siswa->foto)}}" alt="" style="display: block;
+                                max-height: 50px;
+                                width: auto;
+                                overflow: hidden;">
+                            </td> --}}
+                            <td>
+                                <a href="{{route('mastersiswa.show', $siswa['id'])}}" class="btn btn-success"><i class="fas fa-address-book"></i>&nbspLihat</a>
+                                <a href="{{route('mastersiswa.edit', $siswa['id'])}}" class="btn btn-primary"><i class="fas fa-edit"></i>&nbspEdit</a>
+                                <form action="{{ route('mastersiswa.destroy', $siswa->id) }}" onsubmit="return confirm('Apakah anda yakin menghapusnya??')" method="POST" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash mr-1"></i>Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @else 
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                Data Siswa Kosong.
+                            </td>
+                        </tr>
+                    @endif
                 </table>
             </div>
         </div>
