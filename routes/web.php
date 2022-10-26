@@ -19,7 +19,7 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return redirect('/login');
 });
 
 Route::get('/about', function () {
