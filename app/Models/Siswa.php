@@ -17,7 +17,7 @@ protected $fillable = [
     'foto',
     'about',
 ];
-    protected $table = 'Siswa';
+    protected $table = 'siswa';
     
     public function project(){
         return $this->hasMany('App\Models\Project', 'id_siswa');
