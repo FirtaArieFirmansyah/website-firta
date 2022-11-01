@@ -65,8 +65,7 @@
                                 <td>{{$siswa->nisn}}</td>
                                 <td>{{$siswa->nama}}</td>
                                 <td class="text-nowrap">
-                                <a onclick="show({{ $siswa->id}})" class="btn btn-info btn-sm">
-                                {{-- <i class="far fa-folder-open"></i> --}}
+                                <a onclick="show({{ $siswa->id }})" class="btn btn-info btn-sm">
                                 <i class="fas fa-id-card-alt"></i>
                                 </a>
                                 <a href="{{ route('masterkontak.create') }}?siswa={{ $siswa->id}}" class="btn btn-success btn-sm">
@@ -103,9 +102,10 @@
          
     <script>
       function show(id){
-      
-          $.get('masterkontak/'+id, function(siswas){
-              $('#kontak').html(siswas);
+        
+          $.get('/admin/masterkontak/'+id, function(kontaks){
+              $('#kontak').html(kontaks);
+            // console.log(kontaks)
           })
       }
     </script>

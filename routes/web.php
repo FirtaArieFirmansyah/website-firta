@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\KontakController;
+use App\Http\Controllers\JenisKontakController;
 use App\Http\Controllers\LoginController;
 
 /*
@@ -52,4 +53,5 @@ Route::resource('/mastersiswa', SiswaController::class);
 Route::resource('/masterproject', ProjectController::class);
 
 Route::resource('/masterkontak', KontakController::class);
+Route::resource('/jeniskontak', JenisKontakController::class);
 });

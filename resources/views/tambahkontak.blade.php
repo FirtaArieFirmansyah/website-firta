@@ -14,9 +14,9 @@
               <div class="form-group">
                 <label for="id_siswa">Nama Siswa</label>
                 <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" 
-                value="{{ $siswa->nama }}" disabled>
-                <input type="hidden" name="nama" value="{{ $siswa->nama }}">
-                <input type="hidden" name="id_siswa" value="{{ $siswa->id}}">
+                value="{{ $siswas->nama }}" disabled>
+                <input type="hidden" name="nama" value="{{ $siswas->nama }}">
+                <input type="hidden" name="id_siswa" value="{{ $siswas->id}}">
                 @error('id_siswa')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -26,11 +26,6 @@
               <div class="form-group">
                 <label for="jenis_kontak">Jenis Kontak</label>
                 <input type="text" name="jenis_kontak" class="form-control @error('jenis_kontak') is-invalid @enderror" id="jenis_kontak" value="{{ old('jenis_kontak')}}">
-                @error('jenis_kontak')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
               </div>
               <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>

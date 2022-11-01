@@ -1,20 +1,26 @@
-@if($siswas->isEmpty())
+@if($kontaks->isEmpty())
   <h6 class="text-center">Siswa belum memiliki kontak.</h6>
 @else
-    @foreach($siswas as $siswa)
+    @foreach($kontaks as $kontak)
         
     <div class="card">
         <div class="card-header">
-            {{$siswa->jenis_kontak}}
+            <i class="fab fa-{{$kontak->jeniskontak->jenis_kontak}}"></i>
 
         </div>
         <div class="card-body">
-            <h6>Jenis Kontak : {{$siswa->jenis_kontak_id}}</h6>
-            <h6>Deskripsi : {{$siswa->deskripsi}}</h6> 
+            {{-- 
+                <i class="fab fa-instagram"></i> 
+                <i class="fa-brands fa-whatsapp"></i>
+            
+            <h6>Jenis Kontak : {{$kontak->jeniskontak->jenis_kontak}}</h6>
+            --}}
+
+            <h6>{{$kontak->deskripsi}}</h6> 
         </div>
         <div class="card-footer">
-            <a href="{{route('masterkontak.edit', $siswa['id'])}}" class="btn btn-sm btn warning"><i class="fas fa-edit"></i></a>
-            <form action="{{ route('masterkontak.destroy', $siswa->id) }}" onsubmit="return confirm('Apakah anda yakin menghapusnya ?')" method="POST" class="d-inline">
+            <a href="{{route('masterkontak.edit', $kontak->id)}}" class="btn btn-sm btn warning"><i class="fas fa-edit"></i></a>
+            <form action="{{ route('masterkontak.destroy', $kontak->id) }}" onsubmit="return confirm('Apakah anda yakin menghapusnya ?')" method="POST" class="d-inline">
                 @method('DELETE')
                 @csrf
                 <button type="submit" class="btn btn-sm-danger"><i class="fas fa-trash"></i></button>

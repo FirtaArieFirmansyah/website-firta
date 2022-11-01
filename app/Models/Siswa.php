@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Kontak;
 
 class Siswa extends Model
 {
@@ -23,7 +24,7 @@ protected $fillable = [
         return $this->hasMany('App\Models\Project', 'id_siswa');
     }
     
-    public function kontak(){
-        return $this->belongsToMany('App\Models\Kontak', 'id_siswa')->withPivot('deskripsi');
+    public function kontaks(){
+        return $this->hasMany(Kontak::class, 'siswa_id');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kontak;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Models\JenisKontak;
 
 class KontakController extends Controller
 {
@@ -16,11 +16,9 @@ class KontakController extends Controller
      */
     public function index()
     {
-        //return view('masterkontak');
-        //$kontaks = Kontak::all();
-        //return view('masterkontak', compact('kontaks'));
         $siswas = Siswa::all();
-        return view('masterkontak', compact('siswas'));
+        $kontaks = Kontak::with('siswa')->get();
+        return view('masterkontak', compact('siswas', 'kontaks'));
     }
 
     /**
@@ -30,12 +28,10 @@ class KontakController extends Controller
      */
     public function create()
     {
-        //return view('tambahkontak');
-        //$kontaks = Kontak::all();
-        //return view('tambahkontak', compact('kontaks'));
         $simin_id = request()->query('siswa');
-        $siswa = Siswa::find($simin_id);
-        return view('tambahkontak', compact('siswa', 'simin_id'));
+        $siswas = Siswa::find($simin_id);
+        $kontaks = JenisKontak::all();
+        return view('tambahkontak', compact('siswas', 'kontaks'));
     }
 
     /**
@@ -56,11 +52,9 @@ class KontakController extends Controller
             'size' => ':file yang diupload harus maksimal size yaa..',
             ];
             $validatedData = $request->validate([
-                'id_siswa' => 'required',
-                'nama_project' => 'required',
+                'siswa_id' => 'required',
+                'jenis_kontak_id' =>'required',
                 'deskripsi' => 'required',
-                'foto' => 'image|file',
-                'tanggal' => 'required',
             ], $message );
             
             Kontak::create($validatedData);
@@ -73,11 +67,11 @@ class KontakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Siswa $masterkontak)
     {
-        //return view('showkontak');
-        $siswas=Siswa::find($id)->kontak()->get();
-        return view('showkontak', compact('siswas'));
+        $kontaks = $masterkontak->kontaks;
+       
+        return view('showkontak', compact('kontaks'));
     }
 
     /**
@@ -90,9 +84,8 @@ class KontakController extends Controller
     {
         //return view('editkontak');
         Kontak::find('id');
-        $siswas = Siswa::all();
         $kontaks = Kontak::where('id', $id)->firstorfail();
-        return view('editkontak', compact('kontaks'), compact('siswas'));
+        return view('editkontak', compact('kontaks'));
     }
 
     /**
@@ -114,14 +107,12 @@ class KontakController extends Controller
             'size' => ':file yang diupload harus maksimal size yaa..',
             ];
             $validatedData = $request->validate([
-                'id_siswa' => 'required',
-                'nama_project' => 'required',
+                
                 'deskripsi' => 'required',
-                'foto' => 'image|file',
-                'tanggal' => 'required',
+
             ], $message );
 
-            $kontaks = Kontak::where('id', $id)
+            Kontak::where('id', $id)
                 ->update($validatedData);
     
             return redirect()->route('masterkontak.index')->with('success', 'Data Updated Successfully');
@@ -136,7 +127,7 @@ class KontakController extends Controller
     public function destroy($id)
     {
         //
-        $kontaks = Kontak::find($id)
+        Kontak::find($id)
                 ->delete();
         return redirect('admin/masterkontak');
     }

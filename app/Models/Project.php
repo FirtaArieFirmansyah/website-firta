@@ -16,6 +16,7 @@ class Project extends Model
         'tanggal',
     ];
         protected $table = 'project';
+        protected $guarded=[];
         public function siswa(){
             return $this->belongsTo('App\Models\Siswa', 'id_siswa');
         }
