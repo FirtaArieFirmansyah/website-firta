@@ -15,11 +15,10 @@
             
             <h6>Jenis Kontak : {{$kontak->jeniskontak->jenis_kontak}}</h6>
             --}}
-
             <h6>{{$kontak->deskripsi}}</h6> 
         </div>
         <div class="card-footer">
-            <a href="{{route('masterkontak.edit', $kontak->id)}}" class="btn btn-sm btn warning"><i class="fas fa-edit"></i></a>
+            <a href="{{route('masterkontak.edit', $kontak['id'])}}" class="btn btn-sm btn warning"><i class="fas fa-edit"></i></a>
             <form action="{{ route('masterkontak.destroy', $kontak->id) }}" onsubmit="return confirm('Apakah anda yakin menghapusnya ?')" method="POST" class="d-inline">
                 @method('DELETE')
                 @csrf

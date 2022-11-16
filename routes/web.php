@@ -53,5 +53,6 @@ Route::resource('/mastersiswa', SiswaController::class);
 Route::resource('/masterproject', ProjectController::class);
 
 Route::resource('/masterkontak', KontakController::class);
+
 Route::resource('/jeniskontak', JenisKontakController::class);
 });

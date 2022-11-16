@@ -42,6 +42,7 @@
                 </div>
               @enderror
             </div>
+
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ $siswa->email }}" placeholder="Masukkan alamat email siswa..">
@@ -51,6 +52,7 @@
                 </div>
               @enderror
             </div>
+
             <div class="form-group">
               <label for="alamat">Alamat</label>
               <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" value="{{ $siswa->alamat }}" placeholder="Masukkan alamat siswa..">
@@ -87,17 +89,20 @@
                   {{ $message }}
                 </div>
               @enderror
-              </div> --}}
-            {{-- </div> <br><br> --}}
+              </div>
+            </div> <br><br>--}}
+            
             <div class="form-group">
               <label for="about">Tentang Siswa</label>
               <textarea name="about" class="form-control @error('about') is-invalid @enderror" id="about" value="{{ $siswa->about }}" placeholder="Masukkan about siswa..">
+              </textarea>
               @error('about')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
               @enderror
             </div>
+
             <button type="submit" class="btn btn-primary">Simpan</button>
           </form>
         </form>
