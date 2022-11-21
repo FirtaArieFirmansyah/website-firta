@@ -9,7 +9,7 @@
 
         </div>
         <div class="card-body">
-            <img class="w-50" src="{{asset('storage/'. $siswa->foto)}}" alt=""><br><br>
+            <img class="w-50" src="{{asset('img/admin/'. $siswa->foto)}}" alt=""><br><br>
             <h6>Deskripsi : {{$siswa->deskripsi}}</h6> 
             <h6>Tanggal : {{$siswa->tanggal}}</h6>
 

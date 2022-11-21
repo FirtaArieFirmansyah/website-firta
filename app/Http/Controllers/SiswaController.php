@@ -37,7 +37,7 @@ class SiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Siswa $mastersiswa)
     {
         $message = [
         'required' => ':attribute harus diisi yaa..',
@@ -57,15 +57,23 @@ class SiswaController extends Controller
             'about' => 'required',
         ], $message );
 
-        if ($request->file('foto') == null){
-            $file = "";
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $foto = time() . "_" . $file->getClientOriginalName();
+            $save_db_foto = 'mastersiswa/' . $foto;
+
+            $dir = public_path('img/admin/mastersiswa');
+            if (!file_exists($dir)) mkdir($dir);
+
+            $file->move($dir, $foto);
         }else{
-            $validatedData['foto'] = $request->file('foto')->store('siswa-images');
+            $save_db_foto = 'default.jpg';
         }
-        
+
+        $validatedData['foto'] = $save_db_foto;
+
         Siswa::create($validatedData);
         return redirect('/admin/mastersiswa');
-        //return redirect()->back()->with('success', 'Data Added Successfully');
     }
 
     /**
@@ -103,40 +111,43 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Siswa $mastersiswa)
     {
-        // dd($request->all());
-        // $siswas = Siswa::findOrFail($id);
-        // $siswas->nisn = $request->nisn;
-        // $siswas->nama = $request->nama;
-        // $siswas->alamat = $request->alamat;
-        // $siswas->email = $request->email;
-        // $siswas->jk = $request->jk;
-        // $siswas->foto = "wkwkwk";
-        // $siswas->about = $request->about;
-        // $siswas->save();
-
-        $validatedData = $request->validate([
-            'nisn' => 'required',
+        $messages=[
+            'required' => ':attribute harus diisi gess',
+            'min' => ':attribute minimal :min karakter ya gess',
+            'max' => ':attribute maksimal :max karakter ya gess',
+            'mimes' => 'file: attribute harus bertipe png,jpeg,svg,gif',
+            'numeric' => ':attribute harus diisi angka gess',
+            ];
+           $validatedData = $request->validate([
+            'nisn'=> 'required|numeric|',
             'nama' => 'required',
+            'alamat' => 'required|min:5',
             'jk' => 'required',
             'email' => 'required',
-            'alamat' => 'required',
-            'foto' => 'image|file',
+            'foto' => 'image|file|mimes:jpg,jpeg,gif,svg',
             'about' => 'required'
-        ]);
+           ], $messages); 
 
-        if($request->file('foto')){
-            if($request->oldFoto){
-                Storage::delete($request->oldFoto);
-            }
-            $validatedData['foto'] = $request->file('foto')->store('siswa-images'); 
+           if ($request->hasFile('foto')) {
+                if ($mastersiswa->foto != 'default.jpg') {
+                    $old_foto = public_path('img/admin/' . $mastersiswa->foto);
+                    if (file_exists($old_foto)) unlink($old_foto);
+                }
+
+            $file = $request->file('foto');
+            $foto = time() . "_" . $file->getClientOriginalName();
+            $save_db_foto = 'mastersiswa/' . $foto;
+
+            $dir = public_path('img/admin/mastersiswa');
+            $file->move($dir, $foto);
+            $validatedData['foto'] = $save_db_foto;
         }
 
-        $siswas=Siswa::where('id', $id)
-            ->update($validatedData);
+        $mastersiswa->update($validatedData);
 
-        return redirect()->route('mastersiswa.index')->with('success', 'Data Updated Successfully');
+        return redirect()->route('mastersiswa.index');
     }
 
     /**

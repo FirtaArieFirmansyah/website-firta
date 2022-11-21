@@ -23,9 +23,21 @@
                   </div>
                 @enderror
               </div>
-              <div class="form-group">
+              {{-- <div class="form-group">
                 <label for="jenis_kontak">Jenis Kontak</label>
                 <input type="text" name="jenis_kontak" class="form-control @error('jenis_kontak') is-invalid @enderror" id="jenis_kontak" value="{{ old('jenis_kontak')}}">
+              </div> --}}
+              <div class="form-group">
+                <label for="jenis_kontak_id">Jenis kontak</label>
+                <input type="text" class="form-control @error('jenis_kontak_id') is-invalid @enderror" id="jenis_kontak_id" name="jenis_kontak_id" 
+                value="{{ $kontaks->jenis_kontak }}">
+                <input type="hidden" name="nama" value="{{ $kontaks->jenis_kontak }}">
+                <input type="hidden" name="jenis_kontak_id" value="{{ $kontaks->id}}">
+                @error('jenis_kontak_id')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
               </div>
               <div class="form-group">
                 <label for="deskripsi">Deskripsi</label>

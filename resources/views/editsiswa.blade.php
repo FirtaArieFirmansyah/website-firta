@@ -77,20 +77,6 @@
               @enderror
               </div>
             </div>
-
-            {{-- <div class="form-group">
-              <label for="foto">Foto</label>
-              <div class="custom-file">
-                <input type="file" name="foto" class="form-control-file @error('foto') is-invalid @enderror" id="foto"><br>
-                <img src="{{ asset('storage/'.$siswa->foto) }}" onchange="previewImage()" width="100" height="100" class="img-thumbnail">
-                <label>
-                @error('foto')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-              </div>
-            </div> <br><br>--}}
             
             <div class="form-group">
               <label for="about">Tentang Siswa</label>

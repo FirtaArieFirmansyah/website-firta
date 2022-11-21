@@ -42,12 +42,8 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $masterproject)
     {
-        // $request = $request->all();
-        // $request['foto'] = 'wkwkwk';
-        // Project::create($request);
-        // return redirect('/admin/masterproject');
 
         $message = [
             'required' => ':attribute harus diisi yaa..',
@@ -65,12 +61,30 @@ class ProjectController extends Controller
                 'tanggal' => 'required',
             ], $message );
     
-            if ($request->file('foto') == null){
-                $file = "";
-            }else{
-                $validatedData['foto'] = $request->file('foto')->store('siswa-project');
-            }
+            // if ($request->file('foto') == null){
+            //     $file = "";
+            // }else{
+            //     $validatedData['foto'] = $request->file('foto')->store('siswa-project');
+            // }
             
+            // Project::create($validatedData);
+            // return redirect('/admin/masterproject');
+
+            if ($request->hasFile('foto')) {
+                $file = $request->file('foto');
+                $foto = time() . "_" . $file->getClientOriginalName();
+                $save_db_foto = 'masterproject/' . $foto;
+    
+                $dir = public_path('img/admin/masterproject');
+                if (!file_exists($dir)) mkdir($dir);
+    
+                $file->move($dir, $foto);
+            }else{
+                $save_db_foto = 'default.jpg';
+            }
+    
+            $validatedData['foto'] = $save_db_foto;
+    
             Project::create($validatedData);
             return redirect('/admin/masterproject');
     }
@@ -111,7 +125,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $masterproject)
     {
         $message = [
             'required' => ':attribute harus diisi yaa..',
@@ -128,29 +142,25 @@ class ProjectController extends Controller
                 'foto' => 'image|file',
                 'tanggal' => 'required',
             ], $message );
-    
-            // if ($request->file('foto')){
-            //     if($request->oldFoto){
-            //         Storage::delete($request->oldFoto);
-            //     }
-            //     $validatedData['foto'] = $request->file('file')->store('siswa-project');
-            //     }
-            
-            //     $projects=Project::where('id', $id)
-            //             ->update($validatedData);
-            // return redirect()->route('masterproject.index');
 
-            if($request->file('foto')){
-                if($request->oldFoto){
-                    Storage::delete($request->oldFoto);
+            if ($request->hasFile('foto')) {
+                if ($masterproject->foto != 'default.jpg') {
+                    $old_foto = public_path('img/admin/' . $masterproject->foto);
+                    if (file_exists($old_foto)) unlink($old_foto);
                 }
-                $validatedData['foto'] = $request->file('foto')->store('siswa-project'); 
-            }
-    
-            $projects=Project::where('id', $id)
-                ->update($validatedData);
-    
-            return redirect()->route('masterproject.index')->with('success', 'Data Updated Successfully');
+
+            $file = $request->file('foto');
+            $foto = time() . "_" . $file->getClientOriginalName();
+            $save_db_foto = 'masterproject/' . $foto;
+
+            $dir = public_path('img/admin/masterproject');
+            $file->move($dir, $foto);
+            $validatedData['foto'] = $save_db_foto;
+        }
+
+        $masterproject->update($validatedData);
+
+        return redirect()->route('masterproject.index');
     }
 
     /**

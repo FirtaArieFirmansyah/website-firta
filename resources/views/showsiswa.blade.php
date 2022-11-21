@@ -45,7 +45,7 @@
      <h6 class="m-0 font-weight-bold text-primary">Profil Siswa</h6>
     </div>
     <div class="card-body text-center">
-    <img class="w-50 mx-auto" src="{{asset('storage/'. $siswa->foto)}}" alt="" style="display: block; overflow: hidden;">
+    <img class="w-50 mx-auto" src="{{asset('img/admin/'. $siswa->foto)}}" alt="" style="display: block; overflow: hidden;">
     <br>
          <ul style="list-style:none;">
             <li>NISN : {{ $siswa->nisn }}</li>
