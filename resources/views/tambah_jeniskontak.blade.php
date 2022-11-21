@@ -6,8 +6,27 @@
 <div class="row">
   <div class="col-12">
         <a href="{{ route('masterkontak.index') }}" class="btn btn-dark mb-2">Kembali</a>
+        <div class="card-body">
+          <div class="form-group row">
+              <label for="jenis_kontak" class="col-sm-3 col-form-label">Jenis Kontak Saat Ini : </label>
+              <div class="col-sm-5 text-nowrap">
+                  @foreach ($jenis_kontak as $item)
+                  <form method="POST" action="{{ route('jeniskontak.destroy', $item->id) }}"
+                      onclick="return confirm('Apakah Anda Yakin Akan Menghapus Jenis Kontak {{ $item->jenis_kontak }} ?')"
+                      class="d-inline">
+                      @csrf
+                      @method('DELETE')
+                      <button class="btn btn-secondary btn-icon-split">
+                          <span class="icon text-white-50">
+                              <i class="fas fa-trash"></i>
+                          </span>
+                          <span class="text">{{ $item->jenis_kontak }}</span>
+                      </button>
+                  </form>
+                  @endforeach
+              </div>
+          </div>
     <div class="card mb-5">
-        
       <div class="card-body">
         <form action="{{ route('jeniskontak.store') }}" method="POST" enctype="multipart/form-data">
           @csrf

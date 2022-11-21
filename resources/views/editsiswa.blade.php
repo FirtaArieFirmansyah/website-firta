@@ -80,7 +80,8 @@
             
             <div class="form-group">
               <label for="about">Tentang Siswa</label>
-              <textarea name="about" class="form-control @error('about') is-invalid @enderror" id="about" value="{{ $siswa->about }}" placeholder="Masukkan about siswa..">
+              <textarea name="about" class="form-control @error('about') is-invalid @enderror" id="about" placeholder="Masukkan about siswa..">
+              {{old('siswa->about')}}
               </textarea>
               @error('about')
                 <div class="invalid-feedback">

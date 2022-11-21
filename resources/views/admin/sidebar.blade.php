@@ -43,6 +43,11 @@
                 <i class="fas fa-address-book"></i>
                 <span>Master Kontak</span></a>
             </li>
+            <li class="nav-item @if(Request::is('admin/jeniskontak')) active @endif">
+                <a class="nav-link" href="/admin/jeniskontak">
+                <i class="fas fa-address-book"></i>
+                <span>Jenis Kontak</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">

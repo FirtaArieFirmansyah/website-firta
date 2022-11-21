@@ -14,7 +14,8 @@ class JenisKontakController extends Controller
      */
     public function index()
     {
-        return view ('tambah_jeniskontak');
+        $jenis_kontak = JenisKontak::all();
+        return view('tambah_jeniskontak', compact('jenis_kontak'));
     }
 
     /**
@@ -37,12 +38,12 @@ class JenisKontakController extends Controller
     {
         $validatedData = $request->validate([
             'jenis_kontak' => 'required'
+        ],[
+            'jenis_kontak.required' => 'Jenis Kontak Wajib diisi'
         ]);
 
         JenisKontak::create($validatedData);
-        return redirect('/admin/masterkontak');
-
-
+        return redirect('/admin/jeniskontak')->with('success', 'Berhasil Menambah Jenis Kontak');
     }
 
     /**
@@ -87,9 +88,8 @@ class JenisKontakController extends Controller
      */
     public function destroy($id)
     {
-        JenisKontak::find('id', $id)
-            ->delete();
-
-        return redirect('/admin/masterkontak');
+        JenisKontak::find($id)->delete();
+        
+        return redirect('/admin/jeniskontak')->with('success', 'Berhasil Menghapus Jenis Kontak');
     }
 }
