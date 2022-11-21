@@ -45,7 +45,7 @@
             </li>
             <li class="nav-item @if(Request::is('admin/jeniskontak')) active @endif">
                 <a class="nav-link" href="/admin/jeniskontak">
-                <i class="fas fa-address-book"></i>
+                <i class="fas fa-phone"></i>
                 <span>Jenis Kontak</span></a>
             </li>
 
