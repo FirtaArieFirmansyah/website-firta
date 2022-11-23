@@ -61,7 +61,7 @@
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">Kontak</h6>
     </div>
-    <div class="card-body">
+    <div class="card-body text-center">
      @foreach($kontak as $k)
      <i class="fab fa-{{$k->jeniskontak->jenis_kontak}}"></i> &nbsp <i class="fas fa-arrow-right"></i> &nbsp
      <span>{{$k->deskripsi}}</span><br>
