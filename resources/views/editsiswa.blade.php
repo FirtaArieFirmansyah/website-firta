@@ -66,9 +66,9 @@
             <div class="form-group">
               <label for="foto">Foto</label>
               <div class="custom-file">
-                <input type="file" name="foto" class="form-control-file @error('foto') is-invalid @enderror" id="foto" value="{{ old('foto')}}"
+                <input type="file" name="foto" class="form-control-file @error('foto') is-invalid @enderror" id="foto"
                 onchange="previewImage()"><br>
-                <img src="" class="img-preview w-100 img-fluid mb-3 col-sm-1">
+                <img src="{{ asset('img/admin/'. $siswa->foto) }}" class="img-preview w-100 img-fluid mb-3 col-sm-1">
                 <label>
                 @error('foto')
                 <div class="invalid-feedback">
@@ -80,9 +80,7 @@
             
             <div class="form-group">
               <label for="about">Tentang Siswa</label>
-              <textarea name="about" class="form-control @error('about') is-invalid @enderror" id="about" placeholder="Masukkan about siswa..">
-              {{old('siswa->about')}}
-              </textarea>
+              <textarea name="about" class="form-control @error('about') is-invalid @enderror" id="about" placeholder="Masukkan about siswa..">{{$siswa->about}}</textarea>
               @error('about')
                 <div class="invalid-feedback">
                   {{ $message }}

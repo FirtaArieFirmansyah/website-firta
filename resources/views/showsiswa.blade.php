@@ -53,19 +53,19 @@
             <li>Alamat : {{ $siswa->alamat }}</li>
             <li>Email : {{ $siswa->email }}</li>
             <li>Jenis Kelamin : {{ $siswa->jk }}</li>
-            {{-- <li>Foto : {{ $siswa->foto }}</li> --}}
-            {{-- <li>About : {{ $siswa->about }}</li> --}}
-            
          </ul>
-
    </div>
   </div>
+
   <div class="card shadow">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">Kontak</h6>
     </div>
     <div class="card-body">
-     
+     @foreach($kontak as $k)
+     <i class="fab fa-{{$k->jeniskontak->jenis_kontak}}"></i> &nbsp <i class="fas fa-arrow-right"></i> &nbsp
+     <span>{{$k->deskripsi}}</span><br>
+     @endforeach
      
      </div>
     </div>
@@ -88,12 +88,12 @@
     <h6 class="m-0 font-weight-bold text-primary">Project</h6>
   </div>
   <div class="card-body">
-   <div class="row">
+   <div class="row justify-content-center">
     @foreach($projek as $project)
      <div class="col-md-5">
       <div class="card-body">
         <h6 class="text-center">{{$project->nama_project}}</h6>
-        <img class="w-100" src="{{asset('storage/'. $project->foto)}}" alt="">
+        <img class="w-100" src="{{asset('img/admin/'. $project->foto)}}" alt="Foto Project.">
         <br><br>
         <h6 class="text-center">{{$project->deskripsi}}</h6>
       </div>

@@ -86,7 +86,8 @@ class SiswaController extends Controller
     {
         $siswa = Siswa::find($id);
         $projek = $siswa->project;
-        return view('showsiswa', ['siswa'=>$siswa,'projek' => $projek]);
+        $kontak = $siswa->kontaks;
+        return view('showsiswa', ['siswa'=>$siswa,'projek' => $projek, 'kontak'=>$kontak]);
         // $siswa=Siswa::where('id', $id)->with('project')->firstorfail();
         // return view('showsiswa', ['siswa'=>$siswa]);
 
